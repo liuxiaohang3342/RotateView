@@ -30,6 +30,8 @@ public class RotateView extends View {
 
     private Paint mPaint;
 
+    private ValueAnimator animator;
+
     public RotateView(Context context) {
         super(context);
         init(context);
@@ -68,12 +70,14 @@ public class RotateView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int size = dataList.size();
-        for (int i = 0; i < size; i++) {
-            BitmapPoint track = dataList.get(i);
-            track.handleStatus();
-            mPaint.setAlpha(track.getAlpha());
-            canvas.drawBitmap(track.getmBitmap(), track.getMatrix(), mPaint);
+        if(dataList != null){
+            int size = dataList.size();
+            for (int i = 0; i < size; i++) {
+                BitmapPoint track = dataList.get(i);
+                track.handleStatus();
+                mPaint.setAlpha(track.getAlpha());
+                canvas.drawBitmap(track.getmBitmap(), track.getMatrix(), mPaint);
+            }
         }
     }
 
@@ -81,7 +85,8 @@ public class RotateView extends View {
      * 此方法释放对数据的引用，不过调用之后需要重新setData之后才可以start
      */
     public void destory() {
-        clearAnimation();
+        animator.cancel();
+        animator = null;
         dataList.clear();
         dataList = null;
         unusedData.clear();
@@ -93,8 +98,7 @@ public class RotateView extends View {
         if (dataList.size() == 0) {
             throw new RuntimeException("before start must set data");
         }
-        ValueAnimator animator = ValueAnimator.ofFloat(1.0F, 0.5F);
-        animator.setTarget(this);
+        animator = ValueAnimator.ofFloat(1.0F, 0.5F);
         animator.setRepeatMode(ValueAnimator.RESTART);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
