@@ -129,24 +129,24 @@ public class RotateView extends View {
             public void onAnimationRepeat(Animator animation) {
                 int size = dataList.size();
                 for (int i = 0; i < size; i++) {
-                    BitmapPoint track = dataList.get(i);
-                    switch (track.getDirection()) {
+                    BitmapPoint point = dataList.get(i);
+                    switch (point.getDirection()) {
                         case 0:
                             if (unusedData.size() > 0) {
-                                unusedData.add(track.getmBitmap());
-                                track.setmBitmap(unusedData.get(0));
+                                unusedData.add(point.getmBitmap());
+                                point.setmBitmap(unusedData.get(0));
                                 unusedData.remove(0);
                             }
-                            track.setDirection(BitmapPoint.AFTER_RIGHT);
+                            point.setDirection(BitmapPoint.AFTER_RIGHT);
                             break;
                         case 1:
-                            track.setDirection(BitmapPoint.BEFORE_RIGHT);
+                            point.setDirection(BitmapPoint.BEFORE_RIGHT);
                             break;
                         case 2:
-                            track.setDirection(BitmapPoint.BEFORE_LEFT);
+                            point.setDirection(BitmapPoint.BEFORE_LEFT);
                             break;
                         case 3:
-                            track.setDirection(BitmapPoint.AFTER_LEFT);
+                            point.setDirection(BitmapPoint.AFTER_LEFT);
                             break;
 
                     }
