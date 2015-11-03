@@ -201,7 +201,7 @@ public class RotateView extends View {
                     translateX = getWidth() / 2 - getWidth() / 2 * (1.0f - mValue) * 2;
                     translateY = getHeight() / 2 - mBitmap.getHeight() / 2 * (1.0f - mValue);
                     matrix.postTranslate(translateX, translateY);
-                    alpha = (int) ((1 - mValue) * 255 * 0.5);
+                    alpha = (int) ((1 - mValue) * 255);
                     break;
                 case AFTER_RIGHT://后右
                     matrix.postScale(mValue - 0.5f, mValue - 0.5f);
